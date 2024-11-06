@@ -1,7 +1,10 @@
 * { 
     font-family: "Raleway", sans-serif;
 }
-
+.container{ 
+    display: block;
+    justify-content: space-between;
+}
 mat-list-item div{ 
     padding: 5px; 
 } 
