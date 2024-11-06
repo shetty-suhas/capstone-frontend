@@ -9,8 +9,8 @@ export class NavbarComponent {
   iconSrcAdd: string = "assets/add-grey.png" 
   iconSrcEvent: string = "assets/event-grey.png" 
   iconSrcGuest: string = "assets/guest-grey.png"   
-  iconSrcBudget: string = "assets/grey-budget.png"
-
+  iconSrcBudget: string = "assets/budget-grey.png" 
+  iconSrcVendor: string = "assets/vendor-grey.png" 
   onHoverAdd(isHovered: boolean): void {
     this.iconSrcAdd = isHovered ? "assets/add-white.png" : "assets/add-grey.png";
   } 
@@ -23,5 +23,9 @@ export class NavbarComponent {
   } 
   onHoverBudget(isHovered: boolean): void {
     this.iconSrcBudget = isHovered ? "assets/budget-white.png" : "assets/budget-grey.png"; 
-  }
+  } 
+  onHoverVendor(isHovered: boolean): void {
+    this.iconSrcVendor = isHovered ? "assets/vendor-white.png" : "assets/vendor-grey.png"; 
+  } 
+
 }

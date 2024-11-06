@@ -7,17 +7,20 @@ mat-list-item div{
 } 
 
 mat-list-item p{ 
-    color: hsl(0, 1%, 54%); 
+    color: hsl(0, 1%, 54%);  
+    margin-top: 5px;
 } 
 
 mat-list-item div{ 
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: flex-start; 
+    padding-top: 15px;
 } 
 
 mat-list-item p{ 
-    font-size: 15px;
+    font-size: 15px; 
+    font-weight: 600;
 }
 
 mat-list-item div img{ 
@@ -29,6 +32,20 @@ mat-list-item div img{
 
 mat-list-item:hover .btns{ 
     color: white;
-}
+}  
+mat-list-item:not(.head-list):hover{ 
+    background-color: rgb(24, 36, 46);
+} 
+.heading{ 
+    color: hsl(0, 1%, 54%); 
+    font-size: 10px; 
+    margin-top: 10px;
+    margin-bottom: 0px;
+    padding-bottom: 0px;  
+    pointer-events: none;
+    opacity: 0.6;
+}    
+
+
 
 

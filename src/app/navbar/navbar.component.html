@@ -1,39 +1,59 @@
+<div>
+    <mat-nav-list>  
+        <mat-list-item class="head-list">
+            <h1 class="heading">APPLICATION</h1>
+        </mat-list-item>
+        <mat-list-item 
+        (mouseover)="onHoverAdd(true)" 
+        (mouseleave)="onHoverAdd(false)"> 
+            <div>
+                <img [src]="iconSrcAdd" alt="logo.png"> 
+                <p class="btns">Add</p>
+            </div> 
+        </mat-list-item> 
+        <mat-list-item 
+        (mouseover)="onHoverEvent(true)" 
+        (mouseleave)="onHoverEvent(false)">
+            <div>
+                <img [src]="iconSrcEvent" alt="events.png">
+                <p class="btns">Events</p>
+            </div>
+        </mat-list-item> 
 
-<mat-nav-list>
-    <mat-list-item 
-    (mouseover)="onHoverAdd(true)" 
-    (mouseleave)="onHoverAdd(false)"> 
-        <div>
-            <img [src]="iconSrcAdd" alt="logo.png"> 
-            <p class="btns">Add</p>
-        </div> 
-    </mat-list-item> 
-    <mat-list-item 
-    (mouseover)="onHoverEvent(true)" 
-    (mouseleave)="onHoverEvent(false)">
-        <div>
-            <img [src]="iconSrcEvent" alt="events.png">
-            <p class="btns">Events</p>
-        </div>
-    </mat-list-item> 
-
-    <mat-list-item
-    (mouseover)="onHoverGuest(true)" 
-    (mouseleave)="onHoverGuest(false)">
-        <div>
-            <img [src]="iconSrcGuest" alt="Guests.png"> 
-            <p class="btns">Guests</p>
-        </div>
-    </mat-list-item>  
+        <mat-list-item
+        (mouseover)="onHoverGuest(true)" 
+        (mouseleave)="onHoverGuest(false)">
+            <div>
+                <img [src]="iconSrcGuest" alt="Guests.png"> 
+                <p class="btns">Guests</p>
+            </div>
+        </mat-list-item>  
 
 
-    <mat-list-item
-    (mouseover)="onHoverBudget(true)" 
-    (mouseleave)="onHoverBudget(false)">
-        <div>
-            <img [src]="iconSrcBudget" alt="Budget.png"> 
-            <p class="btns">Budget</p>
-        </div>
-    </mat-list-item>
-    
-</mat-nav-list>
+        <mat-list-item
+        (mouseover)="onHoverBudget(true)" 
+        (mouseleave)="onHoverBudget(false)">
+            <div>
+                <img [src]="iconSrcBudget" alt="Budget.png"> 
+                <p class="btns">Budget</p>
+            </div>
+        </mat-list-item> 
+
+        <mat-list-item
+        (mouseover)="onHoverVendor(true)" 
+        (mouseleave)="onHoverVendor(false)">
+            <div>
+                <img [src]="iconSrcVendor" alt="Vendor.png"> 
+                <p class="btns">Vendor</p>
+            </div>
+        </mat-list-item>
+        
+    </mat-nav-list>
+</div>
+<div>
+    <mat-nav-list>
+        <mat-list-item>
+            
+        </mat-list-item>
+    </mat-nav-list>
+</div>
