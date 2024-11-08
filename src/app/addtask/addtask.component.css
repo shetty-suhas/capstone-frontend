@@ -1,0 +1,51 @@
+/* Styles for the addtask component */
+
+form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  
+  div {
+    margin-bottom: 12px;
+  }
+  
+  .form-row {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .form-group {
+    flex: 1;
+  }
+  
+  label {
+    font-weight: bold;
+    margin-bottom: 4px;
+  }
+  
+  input[type="text"],
+  input[type="date"],
+  input[type="time"],
+  button {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    margin-top: 4px;
+  }
+  
+  button {
+    background-color: rgb(2, 167, 233);
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    width: 104%;
+  }
+  
+  button:hover {
+    background-color: rgb(138, 191, 211);
+  }
+  

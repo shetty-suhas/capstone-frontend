@@ -1,0 +1,38 @@
+<form #taskForm="ngForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label>Project Name:</label>
+      <input type="text" name="projectName" [(ngModel)]="task.projectName" required />
+    </div>
+  
+    <div>
+      <label>Project Description:</label>
+      <input type="text" name="projectDescription" [(ngModel)]="task.projectDescription" required />
+    </div>
+  
+    <div class="form-row">
+      <div class="form-group">
+        <label>Start Date:</label>
+        <input type="date" name="startDate" [(ngModel)]="task.startDate" required />
+      </div>
+  
+      <div class="form-group" style="margin-left: 20px;">
+        <label>End Date:</label>
+        <input type="date" name="endDate" [(ngModel)]="task.endDate" required />
+      </div>
+    </div>
+  
+    <div class="form-row">
+      <div class="form-group">
+        <label>Start Time:</label>
+        <input type="time" name="startTime" [(ngModel)]="task.startTime" required />
+      </div>
+  
+      <div class="form-group" style="margin-left: 20px;">
+        <label>End Time:</label>
+        <input type="time" name="endTime" [(ngModel)]="task.endTime" required />
+      </div>
+    </div>
+  
+    <button type="submit">Create Task</button>
+  </form>
+  
