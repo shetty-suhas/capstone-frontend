@@ -1,6 +1,15 @@
 .side-navbar{ 
-    max-width: 250px; 
+    max-width: 200px; 
     background-color: #002d42; 
     height: 100vh;
 } 
+.main-content{  
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+} 
+.container{ 
+    display: flex;
+    align-items: center;
+}
 
