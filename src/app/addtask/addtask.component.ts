@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-addtask',
@@ -21,15 +21,11 @@ export class AddTaskComponent {
     if (this.task.projectName && this.task.projectDescription && this.task.startDate && this.task.endDate) {
       alert('Task created successfully!');
       console.log('Task Details:', this.task);
-
-      // Reset form after submission
       this.resetForm();
     } else {
       alert('Please fill in all required fields.');
     }
   }
-
-  // Reset the form to initial values
   resetForm() {
     this.task = {
       projectName: '',
@@ -39,5 +35,10 @@ export class AddTaskComponent {
       startTime: '',
       endTime: '',
     };
+  } 
+  @Output() close = new EventEmitter<void>();
+
+  closeForm() {
+    this.close.emit();
   }
 }
