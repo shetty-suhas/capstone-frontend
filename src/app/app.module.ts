@@ -9,15 +9,12 @@ import {MatListModule} from '@angular/material/list';
 import { TopNavbarComponent } from './top-navbar/top-navbar.component';
 import { ContentComponent } from './content/content.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-<<<<<<< HEAD
 import { EventcardsComponent } from './eventcards/eventcards.component';
 import { AddTaskComponent } from './addtask/addtask.component';
-import { AddingEventComponent } from './addingevent/addingevent.component'; 
 
-=======
-import { EventcardsComponent } from './eventcards/eventcards.component';  
-import { AddTaskComponent } from './addtask/addtask.component'; 
->>>>>>> 6d1477da7b13920925f2d55eafabe6e8347c4fb4
+import { AddEventFormComponent } from './add-event-form/add-event-form.component'; 
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,14 +22,11 @@ import { AddTaskComponent } from './addtask/addtask.component';
     TopNavbarComponent,
     ContentComponent,
     DashboardComponent,
-<<<<<<< HEAD
     EventcardsComponent,
     AddTaskComponent,
-    AddingEventComponent
-=======
-    EventcardsComponent, 
-    AddTaskComponent
->>>>>>> 6d1477da7b13920925f2d55eafabe6e8347c4fb4
+    
+    AddTaskComponent,
+    AddEventFormComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,69 @@
+<div class="form-container">
+    <div class="form-header">
+      <h2>Adding Event</h2>
+      <span class="close-btn" (click)="closeForm()">X</span>
+    </div>
+    <hr class="top-line">
+  
+    <form>
+      <!-- Event Name -->
+      <div class="form-group">
+        <label for="eventName">Event Name:</label>
+        <input type="text" id="eventName" name="eventName" [(ngModel)]="eventName" required />
+      </div>
+  
+      <!-- Event Description -->
+      <div class="form-group">
+        <label for="eventDescription">Event Description:</label>
+        <input type="text" id="eventDescription" name="eventDescription" [(ngModel)]="eventDescription" required />
+      </div>
+  
+      <!-- Date and Time -->
+      <div class="date-time">
+        <div class="form-group">
+          <label for="startDate">Start Date:</label>
+          <input type="date" id="startDate" name="startDate" [(ngModel)]="startDate" required />
+        </div>
+        <div class="form-group">
+          <label for="endDate">End Date:</label>
+          <input type="date" id="endDate" name="endDate" [(ngModel)]="endDate" required />
+        </div>
+      </div>
+  
+      <div class="date-time">
+        <div class="form-group">
+          <label for="startTime">Start Time:</label>
+          <input type="time" id="startTime" name="startTime" [(ngModel)]="startTime" required />
+        </div>
+        <div class="form-group">
+          <label for="endTime">End Time:</label>
+          <input type="time" id="endTime" name="endTime" [(ngModel)]="endTime" required />
+        </div>
+      </div>
+  
+      <!-- Event Type -->
+      <div class="form-group">
+        <label for="eventType">Event Type:</label>
+        <select id="eventType" name="eventType" [(ngModel)]="eventType">
+          <option value="Wedding">Wedding</option>
+          <option value="Corporate">Corporate Counter</option>
+          <option value="Community">Community Festival</option>
+        </select>
+      </div>
+  
+      <!-- Venue -->
+      <div class="form-group">
+        <label for="venue">Venue:</label>
+        <div class="search-box">
+          <input type="text" id="venue" name="venue" [(ngModel)]="venue" placeholder="Search Venue" />
+          <img src="assets/sear.jpg" alt="Search" class="search-icon" />
+        </div>
+      </div>
+  
+      <!-- Submit Button -->
+      <div class="form-group">
+        <button type="submit" class="submit-btn">Submit</button>
+      </div>
+    </form>
+  </div>
+  
