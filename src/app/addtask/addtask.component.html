@@ -1,38 +1,40 @@
-<form #taskForm="ngForm" (ngSubmit)="onSubmit()">
-    <div>
-      <label>Project Name:</label>
-      <input type="text" name="projectName" [(ngModel)]="task.projectName" required />
+<div class="modal-overlay" (click)="closeForm()"></div>
+<form #taskForm="ngForm" (ngSubmit)="onSubmit()" class="form-task">
+  <div class="header">
+    <h1 class="heading">Add New Task</h1>
+    <button type="button" class="cancel" (click)="closeForm()"><img src="assets/cancel-grey.png" alt=""></button>
+  </div>
+  <div class="form-group">
+    <label>Project Name:</label>
+    <input type="text" name="projectName" [(ngModel)]="task.projectName" required />
+  </div>
+
+  <div class="form-group">
+    <label>Project Description:</label>
+    <input type="text" name="projectDescription" [(ngModel)]="task.projectDescription" required />
+  </div>
+
+  <div class="form-row">
+    <div class="form-group">
+      <label>Start Date:</label>
+      <input type="date" name="startDate" [(ngModel)]="task.startDate" required />
     </div>
-  
-    <div>
-      <label>Project Description:</label>
-      <input type="text" name="projectDescription" [(ngModel)]="task.projectDescription" required />
+    <div class="form-group">
+      <label>End Date:</label>
+      <input type="date" name="endDate" [(ngModel)]="task.endDate" required />
     </div>
-  
-    <div class="form-row">
-      <div class="form-group">
-        <label>Start Date:</label>
-        <input type="date" name="startDate" [(ngModel)]="task.startDate" required />
-      </div>
-  
-      <div class="form-group" style="margin-left: 20px;">
-        <label>End Date:</label>
-        <input type="date" name="endDate" [(ngModel)]="task.endDate" required />
-      </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group">
+      <label>Start Time:</label>
+      <input type="time" name="startTime" [(ngModel)]="task.startTime" required />
     </div>
-  
-    <div class="form-row">
-      <div class="form-group">
-        <label>Start Time:</label>
-        <input type="time" name="startTime" [(ngModel)]="task.startTime" required />
-      </div>
-  
-      <div class="form-group" style="margin-left: 20px;">
-        <label>End Time:</label>
-        <input type="time" name="endTime" [(ngModel)]="task.endTime" required />
-      </div>
+    <div class="form-group">
+      <label>End Time:</label>
+      <input type="time" name="endTime" [(ngModel)]="task.endTime" required />
     </div>
-  
-    <button type="submit">Create Task</button>
-  </form>
-  
+  </div>
+
+  <button type="submit" class="submit">Create Task</button>
+</form>

@@ -21,6 +21,8 @@
         </div>
     </div>  
     <div class="task-btn">
-        <button class="newTask">+ Add New Task</button>
-    </div>
-</div>
+        <button class="newTask" (click)="openForm()">+ Add New Task</button>
+    </div> 
+
+</div> 
+<app-addtask *ngIf="showForm" (close)="closeForm()"></app-addtask>

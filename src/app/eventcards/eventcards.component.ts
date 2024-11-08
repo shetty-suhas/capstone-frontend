@@ -6,6 +6,14 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./eventcards.component.css']
 })
 export class EventcardsComponent {
-  @Input() item: any;
+  @Input() item: any; 
+  showForm = false;
 
+  openForm() {
+    this.showForm = true;
+  }
+
+  closeForm() {
+    this.showForm = false;
+  }
 }
