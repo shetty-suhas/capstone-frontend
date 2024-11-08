@@ -1,0 +1,136 @@
+.container{ 
+  height: 100vh; 
+  width: 85vw;
+  background-color: rgb(234, 247, 252); 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+} 
+.inner-container{  
+  margin-top: 80px;
+  height: 80%; 
+  width: 93%; 
+  background-color: white;  
+  position: relative;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+} 
+.header-child{ 
+  display: block;
+  align-items: center; 
+  margin-left: 30px;
+} 
+.header{ 
+  display: flex; 
+  justify-content: space-between; 
+  margin-top: 25px;
+
+}
+.header-search{ 
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+  margin-right: 50px; 
+} 
+.add-event{ 
+  background-color: rgb(2, 167, 233); 
+  color: white; 
+  border: none; 
+  border-radius: 5px; 
+  padding: 5px; 
+  font-weight: 600;
+  height: 40px;  
+  width: 150px;  
+  font-size: 14px;
+}
+h1{ 
+  color: rgb(105, 103, 103);
+} 
+.add-event:hover{
+  background-color: rgb(138, 191, 211);
+} 
+.plus{ 
+  font-size: 20px; 
+}
+.btn-text{
+  margin-bottom: 300px;
+} 
+.switch3
+{
+  position: relative;
+  height:50px;
+  display:flex;
+  justify-content:space-around;
+}
+.switch3 label{
+  padding: 1rem;
+  z-index:1; 
+  color: #002d42;
+}
+.switch3::before{
+  content: '';
+  position: absolute;
+  left:0;
+  width: 34%;
+  height: 100%;
+  border: 2px solid #002d42;
+  border-radius: 12px;
+  opacity: .5;
+  transition: .5s left ease; 
+}
+
+.switch3:has(#switch3-radio1:checked)::before{
+  left: 0%; 
+} 
+.switch3:has(#switch3-radio2:checked)::before{
+  left: 33%;
+}
+.switch3:has(#switch3-radio3:checked)::before{
+  left: 66%;
+} 
+input[type="radio"] {
+  appearance: none;
+    
+}
+.switch3-container{
+  margin-top: 40px;
+} 
+.event-scroll{ 
+  display: flex; 
+  margin-top: 10px; 
+  margin-left: 25px; 
+  overflow-x: auto;        
+  gap: 1rem;
+  padding: 1rem;            
+  scroll-snap-type: x mandatory; 
+}
+.search {
+  width: 100%;
+  display: flex;
+}
+
+.searchTerm {
+  width: 100%;
+  border: 3px solid #00B4CC;
+  border-right: none;
+  padding: 5px;
+  height: 20px;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  color: #9DBFAF;
+}
+
+.searchTerm:focus{
+  color: #00B4CC;
+}
+
+.searchButton {
+  width: 40px;
+  height: 36px;
+  border: 1px solid #00B4CC;
+  background: #00B4CC;
+  text-align: center;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-size: 20px;
+}

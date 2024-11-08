@@ -1,0 +1,85 @@
+.container-card{ 
+    background-color: rgb(243, 249, 252);
+    width: 350px; 
+    height: 320px; 
+    border-radius: 5px; 
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+} 
+.menu-btn{ 
+    border: none;
+    background-color: rgb(243, 249, 252); 
+    margin-top: 3px;
+    margin-right: 20px; 
+    cursor: pointer; 
+    color: grey; 
+    font-weight: bold;  
+    font-size: 20px;
+} 
+.header{ 
+    display: flex;  
+    align-items: flex-start;
+    justify-content:  space-between; 
+    height: 15%; 
+    width: 100%;
+    margin-bottom: 10px;
+} 
+h3{ 
+    margin-top: 10px;
+    margin-left: 20px; 
+    color: black;
+    font-weight: 600;
+} 
+.container-event-holder{ 
+    height: 80%; 
+    width: 100%; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    margin-top: -30px;  
+}
+.container-event-holder-main{ 
+    height: 85%; 
+    width: 85%; 
+    background-color: white; 
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+    border-radius: 5px; 
+    display: flex; 
+    flex-direction: column;
+    justify-content: space-between;
+
+}  
+.task-btn{ 
+    display: flex; 
+    align-items: center;
+    justify-content: center;  
+    margin-top: 0; 
+
+} 
+.newTask{ 
+    background-color: rgb(202, 236, 248); 
+    color: rgb(2, 167, 233);
+    font-weight: 600; 
+    border: none; 
+    border-radius: 5px;  
+    height: 30px;
+    width: 85%;
+} 
+.newTask:hover{ 
+    background-color: rgb(2, 167, 233); 
+    color: white;
+} 
+.date-notification{ 
+    display: flex; 
+    justify-content: space-between; 
+    margin: 15px; 
+} 
+.event-noti{ 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    align-self: flex-end;
+} 
+.desc{ 
+    margin-left: 15px;
+    margin-top: 15px;
+}
