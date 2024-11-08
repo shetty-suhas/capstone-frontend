@@ -1,0 +1,109 @@
+/* Form container */
+.form-container {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Header styling */
+  .form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .form-header h2 {
+    margin: 0;
+    font-size: 24px;
+  }
+  
+  .close-btn {
+    font-size: 24px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  /* Thin line under heading */
+  .top-line {
+    border: 0;
+    height: 1px;
+    background-color: #ccc;
+    margin: 10px 0;
+  }
+  
+  /* Form body styling */
+  .form-body label {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+  
+  .form-body input,
+  .form-body select {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 15px;
+  }
+  
+  /* Styling for side-by-side date and time fields */
+  .date-time {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  
+  .date-time div {
+    width: 48%;
+  }
+  
+  /* Styling for the venue search box */
+  .search-box {
+    position: relative;
+  }
+  
+  .search-box input {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .search-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+  }
+  
+  /* Submit button */
+  .submit-btn {
+    width: 104%;
+    padding: 10px;
+    background-color: rgb(2, 167, 233);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .submit-btn:hover {
+    background-color: rgb(138, 191, 211);
+  }
+  

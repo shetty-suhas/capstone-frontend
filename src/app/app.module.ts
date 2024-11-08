@@ -10,7 +10,8 @@ import { TopNavbarComponent } from './top-navbar/top-navbar.component';
 import { ContentComponent } from './content/content.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { EventcardsComponent } from './eventcards/eventcards.component';
-import { AddTaskComponent } from './addtask/addtask.component'; 
+import { AddTaskComponent } from './addtask/addtask.component';
+import { AddingEventComponent } from './addingevent/addingevent.component'; 
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { AddTaskComponent } from './addtask/addtask.component';
     ContentComponent,
     DashboardComponent,
     EventcardsComponent,
-    AddTaskComponent
+    AddTaskComponent,
+    AddingEventComponent
   ],
   imports: [
     BrowserModule,
