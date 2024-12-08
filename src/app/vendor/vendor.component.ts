@@ -17,7 +17,8 @@ export class VendorComponent implements OnInit {
     selectedType: string = '';
     selectedEvent: string = '';
     events: Event[] = []; 
-    selectedEventId: string = '';
+    selectedEventId: string = ''; 
+    showAddForm = false;
 
     constructor(private eventService: EventService, private vendorService: VendorService, private router: Router) {}
 
@@ -52,6 +53,17 @@ export class VendorComponent implements OnInit {
 
     onTypeChange() {
         this.filterVendors();
+    } 
+
+    showForm = false;
+
+    openForm() {
+      this.showForm = true;
+    }
+  
+    closeForm() {
+      this.showForm = false;
+      this.loadVendors();
     }
 
 
@@ -62,17 +74,17 @@ export class VendorComponent implements OnInit {
 
     filterVendors() {
         this.filteredVendors = this.vendors.filter(vendor => {
-            const matchesSearch = !this.searchTerm || 
-                vendor.name.toLowerCase().includes(this.searchTerm.toLowerCase());
-            
-            const matchesType = !this.selectedType || 
-                vendor.type.toUpperCase() === this.selectedType.toUpperCase();
-
-            const matchesEvent = !this.selectedEvent || 
-                vendor.eventId?.toString() === this.selectedEvent;
-
-            return matchesSearch && matchesType && matchesEvent;
+          const searchMatch = !this.searchTerm || 
+            vendor.name.toLowerCase().includes(this.searchTerm.toLowerCase());
+          
+          const typeMatch = !this.selectedType || 
+            vendor.type.toUpperCase() === this.selectedType.toUpperCase();
+    
+          const eventMatch = !this.selectedEventId || 
+            vendor.eventId === this.selectedEventId;
+    
+          return searchMatch && typeMatch && eventMatch;
         });
-    } 
+      }
 
 }

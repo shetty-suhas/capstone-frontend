@@ -108,5 +108,72 @@ export class GuestsComponent implements OnInit{
     if (this.selectedEventId) {
       this.loadGuests(this.selectedEventId);
     }
+  } 
+  getDietaryPreferenceClass(guest: Guest): string {
+    if (!guest.dietaryPreference) return '';
+    return guest.dietaryPreference === 0 
+      ? 'vegetarian' 
+      : 'non-vegetarian';
+  }
+
+  getRSVPMapping(num: number): string { 
+    switch (num) {
+      case 0:
+        return 'NOT_SENT';
+      case 1:
+        return 'SENT';
+      case 2:
+        return 'REGISTERED';
+      case 3:
+        return 'DECLINED';
+      case 4:
+        return 'NO_RESPONSE';
+      default:
+        return 'NOT_SENT';
+    }
+  }
+
+  canSendRsvp(guest: Guest): boolean {
+    return this.getRSVPMapping(guest.rsvpStatus) === 'NOT_SENT';
+  }
+
+  sendRsvp(guest: Guest) {
+    // Implement RSVP sending logic
+  }
+
+  sendReminders(guest: Guest) {
+    // Implement reminder sending logic
+  }
+
+  editGuest(guest: Guest) {
+    this.selectedGuest = guest;
+    this.showEditForm = true;
+  }
+
+  deleteGuest(guest: Guest) {
+    this.guestService.deleteGuest(guest.id).subscribe(
+      () => {
+        this.updateEventGuestCount();
+        this.loadGuests(this.selectedEventId);
+      },
+      (error) => {
+        console.error('Error deleting guest:', error);
+      }
+    );
+  }
+
+  private updateEventGuestCount() {
+    if (!this.selectedEventId) return;
+    
+    this.eventService.getEventById(this.selectedEventId).subscribe(
+      event => {
+        const updatedGuestCount = Math.max(0, event.totalGuests - 1);
+        this.eventService.updateEventGuests(this.selectedEventId, updatedGuestCount).subscribe(
+          () => console.log('Event guest count updated'),
+          (error) => console.error('Error updating event guest count:', error)
+        );
+      },
+      error => console.error('Error getting event details:', error)
+    );
   }
 }

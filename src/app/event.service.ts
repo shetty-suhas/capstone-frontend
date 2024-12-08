@@ -7,7 +7,7 @@ import { Budget } from './budget/budget.model';
   providedIn: 'root'
 })
 export class EventService {
-  private apiUrl = 'http://localhost:8095/event';
+  private apiUrl = 'http://localhost:8093/event';
 
   constructor(private http: HttpClient) {}
 

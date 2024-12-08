@@ -11,7 +11,7 @@
       />
 
       <select [(ngModel)]="selectedType" (change)="onTypeChange()" class="filter-dropdown">
-          <option value="">All Types</option>
+          <option value="">Select</option>
           <option value="Catering">Catering</option>
           <option value="Venue">Venue</option>
           <option value="Decor">Decor</option>
@@ -20,11 +20,15 @@
       </select> 
 
       <select [(ngModel)]="selectedEvent" (change)="onEventChange($event)" class="filter-dropdown">
-          <option value="">All Events</option>
+          <option value="">Select</option>
           <option *ngFor="let event of events" [value]="event.id">
               {{ event.name }}
           </option>
-      </select>
+      </select> 
+
+        <button class="add-button" (click)="openForm()">
+            <i class="fas fa-plus"></i> Add Vendor
+        </button>
   </div>
 
   <div class="cards">
@@ -32,6 +36,12 @@
         *ngFor="let vendor of filteredVendors"
         [vendor]="vendor"
     ></app-vendor-card>
-    </div>
-</div>
+    </div> 
+
+</div> 
+
+<app-vendor-form 
+*ngIf="showForm"
+(close)="closeForm()">
+</app-vendor-form>
 <router-outlet></router-outlet>  

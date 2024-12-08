@@ -1,68 +1,74 @@
 <div class="guest-page-container">
-  <h1>Guests</h1>
+    <h1>Guest</h1>
+    
+    <div class="filters-container">
+        <div class="dropdown" (click)="toggleDropdown($event)">
+            <button class="dropdown-button">
+                {{ selectedEventId ? (events | find:selectedEventId)?.name : 'Select Event' }}
+                <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="dropdown-content" *ngIf="dropdownOpen">
+                <div *ngFor="let event of events" 
+                     class="dropdown-item"
+                     (click)="selectOption(event)">
+                    {{ event.name }}
+                </div>
+            </div>
+        </div>
+        <button class="add-guest-button" (click)="openForm()" [disabled]="!selectedEventId">
+            Add Guest
+        </button>
+    </div>
 
-  <div class="filters-container">
-      <div class="dropdown">
-          <button (click)="toggleDropdown($event)" 
-                  class="dropdown-button"
-                  [class.active]="dropdownOpen">
-              {{ selectedEventId ? (events | find:selectedEventId)?.name : 'Select an Event' }}
-              <i [class]="dropdownOpen ? 'fas fa-chevron-up' : 'fas fa-chevron-down'"></i>
-          </button>
+    <div class="guests-list" *ngIf="guests.length > 0">
+        <div class="header-wrapper" *ngFor="let guest of guests">
+            <div class="header-container">
+                <div class="left-section">
+                    <div class="label-text">{{ guest.name }}</div>
+                </div>
+                
+                <div class="right-section">
+                    <div class="dietary-preference">
+                        <span [class]="getDietaryPreferenceClass(guest)">
+                            {{ getDietaryPreferenceClass(guest) }}
+                        </span>
+                    </div>
 
-          <div class="dropdown-content" *ngIf="dropdownOpen">
-              <div *ngIf="events.length === 0" class="no-data">
-                  No events available
-              </div>
-              <ng-container *ngIf="events.length > 0">
-                  <a *ngFor="let event of events" 
-                     (click)="selectOption(event)"
-                     [class.selected]="selectedEventId === event.id">
-                      {{ event.name }}
-                  </a>
-              </ng-container>
-          </div>
-      </div>
+                    <button class="action-button" 
+                            *ngIf="canSendRsvp(guest)"
+                            (click)="sendRsvp(guest)">
+                        Send RSVP
+                    </button>
 
-      <button class="add-guest-button" 
-              [disabled]="!selectedEventId" 
-              (click)="openForm()">
-          + Add New Guest
-      </button>
-  </div>
+                    <button class="action-button" 
+                            (click)="sendReminders(guest)">
+                        Send Reminder
+                    </button>
 
-  <div class="guest-list-container">
-      <ng-container>
-          <div *ngIf="!selectedEventId" class="no-selection">
-              Please select an event to view guests
-          </div>
-          <div *ngIf="selectedEventId && guests.length === 0" class="no-data">
-              No guests found for this event
-          </div>
-          <div class="guest-list" *ngIf="guests.length > 0">
-              <app-guest-list *ngFor="let guest of guests" 
-                             [guest]="guest"
-                             [eventId]="selectedEventId"
-                             (guestEdit)="onGuestEdit($event)">
-              </app-guest-list>
-          </div>
-      </ng-container>
-  </div>
-</div>
+                    <button class="icon-button edit" (click)="editGuest(guest)">
+                        <img src="assets/edit-grey.png" class="icon-img" alt="Edit">
+                    </button>
 
-<app-add-guest-form 
-  *ngIf="showForm" 
-  [eventId]="selectedEventId"
-  (close)="closeForm()"
-  (guestAdded)="onGuestAdded($event)">
-</app-add-guest-form> 
+                    <button class="icon-button delete" (click)="deleteGuest(guest)">
+                        <img src="assets/delete-grey.png" class="icon-img" alt="Delete">
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div> 
+<app-add-guest-form
+*ngIf="showForm"
+[eventId]="selectedEventId"
+(close)="closeForm()"
+(guestAdded)="onGuestAdded($event)">
+</app-add-guest-form>
 
 <app-edit-guest-form
 *ngIf="showEditForm && selectedGuest"
-    [guest]="selectedGuest"
-    [eventId]="selectedEventId"
-    (close)="closeEditForm()"
-    (guestUpdated)="loadGuests(selectedEventId)"
->
+[guest]="selectedGuest"
+[eventId]="selectedEventId"
+(close)="closeEditForm()">
 </app-edit-guest-form>
-

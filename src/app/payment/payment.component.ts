@@ -88,7 +88,21 @@ export class PaymentComponent implements OnInit {
   }
 
   editPayment(payment: Payment) {
-    console.log('Edit payment:', payment);
+    if (!this.vendorId) return;
+    
+    this.isLoading = true;
+    this.vendorService.updatePayment(payment.id, payment, this.vendorId).subscribe({
+      next: () => {
+        this.loadVendorDetails();
+        this.loadPayments();
+        this.isLoading = false;
+      },
+      error: (error) => {
+        console.error('Error updating payment:', error);
+        this.error = 'Failed to update payment';
+        this.isLoading = false;
+      }
+    });
   } 
 
   goBack() {
