@@ -1,75 +1,86 @@
 <div class="popup-form">
   <div class="form-container">
-    <h3>Vendor Form</h3>
-    <form (ngSubmit)="onSubmit()" #vendorForm="ngForm">
+    <h3>Add New Vendor</h3>
+    <form (ngSubmit)="onSubmit()" #vendorForm="ngForm"> 
+      <label for="eventId">Select Event:</label>
+      <select
+        id="eventId"
+        name="eventId"
+        [(ngModel)]="vendor.eventId"
+        #eventId="ngModel"
+        required
+      >
+        <option value="" disabled selected>Select Event</option>
+        <option *ngFor="let event of events" [value]="event.id">
+          {{event.name}}
+        </option>
+      </select>
+      <div *ngIf="eventId.invalid && eventId.touched" class="error">
+        Please select an event
+      </div>
+
       <label for="name">Name:</label>
       <input
         type="text"
         id="name"
         name="name"
         placeholder="Enter vendor name"
-        [( ngModel )]="vendor.name"
-        #name= "ngModel"
+        [(ngModel)]="vendor.name"
+        #name="ngModel"
         (input)="validateName($event)"
         required
       />
-      <div *ngIf="name.invalid && name.touched" class="error">Not applicable</div>
+      <div *ngIf="name.invalid && name.touched" class="error">Only letters and spaces allowed</div>
 
-      <label for="email">Email:</label>
+      <label for="contactEmail">Email:</label>
       <input
         type="email"
-        id="email"
-        name="email"
+        id="contactEmail"
+        name="contactEmail"
         placeholder="Enter email"
-        [(ngModel)]="vendor.email"
+        [(ngModel)]="vendor.contactEmail"
         #email="ngModel"
         required
       />
       <div *ngIf="email.invalid && email.touched" class="error">Invalid email format</div>
 
-      <label for="vendorType">Vendor Type:</label>
+      <label for="type">Vendor Type:</label>
       <select
-        id="vendorType"
-        name="vendorType"
-        [(ngModel)]="vendor.vendorType"
-        #vendorType="ngModel"
+        id="type"
+        name="type"
+        [(ngModel)]="vendor.type"
+        #type="ngModel"
         required
       >
         <option value="" disabled selected>Select Vendor Type</option>
         <option *ngFor="let option of vendorTypeOptions" [value]="option">{{ option }}</option>
       </select>
 
-      <label for="amountPaid">Amount Paid:</label>
+      <label for="totalAmount">Amount Due:</label>
       <input
-        type="text"
-        id="amountPaid"
-        name="amountPaid"
-        placeholder="Enter amount paid"
-        [(ngModel)]="vendor.amountPaid"
-        #amountPaid="ngModel"
+        type="number"
+        id="totalAmount"
+        name="totalAmount"
+        placeholder="Enter amount due"
+        [(ngModel)]="vendor.totalAmount"
+        #totalAmount="ngModel"
         (input)="validateAmount($event)"
         required
       />
-      <div *ngIf="amountPaid.invalid && amountPaid.touched" class="error">Only numbers allowed</div>
+      <div *ngIf="totalAmount.invalid && totalAmount.touched" class="error">Please enter a valid amount</div>
 
-      <label for="pendingAmount">Pending Amount:</label>
-      <input
-        type="text"
-        id="pendingAmount"
-        name="pendingAmount"
-        placeholder="Amount to be paid"
-        [(ngModel)]="vendor.pendingAmount"
-        #pendingAmount="ngModel"
-        required
-      />
-
-      <button
-        type="submit"
-        [disabled]="vendorForm.invalid"
-        class="submit-button"
-      >
-        Submit
-      </button>
+      <div class="form-actions">
+        <button type="button" class="cancel-button" (click)="closeForm()">
+          Cancel
+        </button>
+        <button
+          type="submit"
+          [disabled]="vendorForm.invalid || isSubmitting"
+          class="submit-button"
+        >
+          {{ isSubmitting ? 'Adding...' : 'Add Vendor' }}
+        </button>
+      </div>
     </form>
   </div>
 </div>

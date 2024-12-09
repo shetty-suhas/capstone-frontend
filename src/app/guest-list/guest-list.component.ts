@@ -29,7 +29,7 @@ export class GuestListComponent implements OnInit{
 
   getDietaryPreferenceClass(): string {
     if (!this.guest.dietaryPreference) return '';
-    return this.guest.dietaryPreference === 0 
+    return this.guest.dietaryPreference === 'VEG' 
       ? 'vegetarian' 
       : 'non-vegetarian';
   }
@@ -70,7 +70,7 @@ export class GuestListComponent implements OnInit{
   }
 
   canSendRsvp(): boolean {
-    return this.getRSVPMapping(this.guest.rsvpStatus) === 'NOT_SENT';
+    return this.guest.rsvpStatus === 'NOT_SENT';
   } 
 
   getRSVPMapping(num: number) : String{ 

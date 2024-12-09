@@ -2,16 +2,16 @@ export class Guest {
     id: any;
     name: string;
     contactEmail: string;
-    dietaryPreference: number;  
-    rsvpStatus: number;         
+    dietaryPreference: string;  
+    rsvpStatus: string;         
     eventId: string;
   
     constructor(
       id: any,
       name: string,
       contactEmail: string,
-      dietaryPreference: number,
-      rsvpStatus: number,
+      dietaryPreference: string,
+      rsvpStatus: string,
       eventId: string
     ) {
       this.id = id;

@@ -111,38 +111,23 @@ export class GuestsComponent implements OnInit{
   } 
   getDietaryPreferenceClass(guest: Guest): string {
     if (!guest.dietaryPreference) return '';
-    return guest.dietaryPreference === 0 
+    return guest.dietaryPreference === 'VEG'
       ? 'vegetarian' 
       : 'non-vegetarian';
   }
 
-  getRSVPMapping(num: number): string { 
-    switch (num) {
-      case 0:
-        return 'NOT_SENT';
-      case 1:
-        return 'SENT';
-      case 2:
-        return 'REGISTERED';
-      case 3:
-        return 'DECLINED';
-      case 4:
-        return 'NO_RESPONSE';
-      default:
-        return 'NOT_SENT';
-    }
-  }
+
 
   canSendRsvp(guest: Guest): boolean {
-    return this.getRSVPMapping(guest.rsvpStatus) === 'NOT_SENT';
+    return guest.rsvpStatus === 'NOT_SENT';
   }
 
   sendRsvp(guest: Guest) {
-    // Implement RSVP sending logic
+  
   }
 
   sendReminders(guest: Guest) {
-    // Implement reminder sending logic
+
   }
 
   editGuest(guest: Guest) {

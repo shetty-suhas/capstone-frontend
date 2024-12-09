@@ -1,19 +1,31 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { Event } from '../add-event-form/Event';
+import { EventService } from '../event.service';
+import { VendorService } from '../vendor.service';
+import { Vendor } from '../vendor/vendor.model';
 
 @Component({
   selector: 'app-vendor-form',
   templateUrl: './vendor-form.component.html',
   styleUrls: ['./vendor-form.component.css']
 })
-export class VendorFormComponent {
-  vendor = {
-    name: '',
-    email: '',
-    vendorType: '',
-    amountPaid: '',
-    pendingAmount: ''
-  };
-  vendorTypeOptions = ['Supplier', 'Service', 'Freelancer'];
+export class VendorFormComponent{ 
+  @Output() close = new EventEmitter<void>();  
+  events: Event[] = [];
+
+  constructor(private vendorService: VendorService, private eventService: EventService){
+    this.loadEvents();
+  } 
+  isSubmitting = false; 
+  vendor = new Vendor();
+
+
+  vendorTypeOptions = ['Catering', 'Venue', 'Decor', 'Photography', 'Entertainment'];
+
+  closeForm() {
+    console.log('Emitting close event');
+    this.close.emit();
+  }
 
   validateName(event: any) {
     const regex = /^[A-Za-z\s]+$/;
@@ -34,8 +46,43 @@ export class VendorFormComponent {
   }
 
   onSubmit() {
-    if (this.vendor.name && this.vendor.email && this.vendor.vendorType && this.vendor.amountPaid && this.vendor.pendingAmount) {
-      console.log('Vendor Created:', this.vendor);
+    if (!this.isSubmitting) {
+      this.isSubmitting = true;
+
+      const vendorData = {
+        id: null,
+        name: this.vendor.name,
+        contactEmail: this.vendor.contactEmail,
+        type: this.vendor.type.toUpperCase(),
+        payments: [],
+        totalAmount: Number(this.vendor.totalAmount),
+        pendingAmount: Number(this.vendor.totalAmount), 
+        eventId: this.vendor.eventId
+      };
+
+      this.vendorService.createVendor(vendorData).subscribe({
+        next: () => {
+          console.log('Vendor created successfully');
+          this.isSubmitting = false;
+          this.closeForm();
+        },
+        error: (error) => {
+          console.error('Error creating vendor:', error);
+          this.isSubmitting = false;
+        }
+      });
     }
+  }
+
+  loadEvents() {
+    this.eventService.getAllEvents().subscribe({
+      next: (events) => {
+        this.events = events;
+        console.log('Events loaded:', events);
+      },
+      error: (error) => {
+        console.error('Error loading events:', error);
+      }
+    });
   }
 }

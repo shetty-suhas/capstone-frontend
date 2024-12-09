@@ -1,10 +1,11 @@
-export interface Vendor {
-    id: any;
-    name: string;
-    pendingAmount: number;
-    totalAmount: number;
-    contactEmail: string;
-    type: string; 
-    eventId: string
-  }
-  
+export class Vendor {
+  constructor(
+      public id: null | string = '',
+      public name: string = '',
+      public pendingAmount: number = 0,
+      public totalAmount: number = 0,
+      public contactEmail: string = '',
+      public type: string = '',
+      public eventId: string = ''
+  ) {}
+}

@@ -48,9 +48,6 @@ export class AddGuestFormComponent {
     }
   }
 
-  updateFoodType() {
-    this.dietaryPreference = this.guest.food === 'VEG' ? 0 : 1;
-  }
 
   validateForm(form: NgForm): boolean{ 
     return true;
@@ -73,7 +70,7 @@ export class AddGuestFormComponent {
   onSubmit(form: NgForm) {
       if (this.validateForm(form)) {
         const newGuest = new Guest(
-          null, this.guest.name, this.guest.email, this.dietaryPreference, 0, this.eventId
+          null, this.guest.name, this.guest.email, this.guest.food, 'NOT_SENT', this.eventId
         ) 
         this.isSubmitting = true;
         this.guestService.saveGuest(newGuest).subscribe({
