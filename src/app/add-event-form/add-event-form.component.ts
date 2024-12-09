@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Event } from './Event';
 import { NotificationDialogComponent } from '../notification-dialog/notification-dialog.component';
 import { EventService } from '../event.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-add-event-form',
@@ -27,10 +28,7 @@ export class AddEventFormComponent{
   closeForm() {
     this.close.emit();
   }  
-
-
-
-  constructor(private eventService: EventService, private dialog: MatDialog) {}
+  constructor(private eventService: EventService, private authService: AuthService, private dialog: MatDialog) {}
 
 
   errorMessages = {
@@ -77,13 +75,10 @@ export class AddEventFormComponent{
       isValid = false;
     }
 
-    // Validate Start Time and End Time
     if (!this.startTime || !this.endTime || this.isStartTimeAfterEndTime()) {
       this.errorMessages.startTime = 'Start Time must be earlier than End Time';
       isValid = false;
     }
-
-    // Validate Venue
     if (!this.venue) {
       this.errorMessages.venue = 'Venue is required';
       isValid = false;
@@ -107,10 +102,12 @@ export class AddEventFormComponent{
   onSubmit(form: NgForm) {
     console.log(this.startDate)
     console.log(this.endDate)
-    if (this.validateForm(form)) {
+    if (this.validateForm(form)) { 
+      const userId = this.authService.getUserId();  
+      if(!userId) return;
       const newEvent = new Event(
         null,  
-        'user-id',  
+        userId,  
         this.eventName,
         this.venue,
         `${this.formatDate(this.startDate)} ${this.startTime}`,  

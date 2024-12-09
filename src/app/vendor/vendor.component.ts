@@ -4,6 +4,7 @@ import { Event } from '../add-event-form/Event';
 import { VendorService } from '../vendor.service';
 import { EventService } from '../event.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-vendor',
@@ -20,22 +21,27 @@ export class VendorComponent implements OnInit {
     selectedEventId: string = ''; 
     showAddForm = false;
 
-    constructor(private eventService: EventService, private vendorService: VendorService, private router: Router) {}
+    constructor(private eventService: EventService, private vendorService: VendorService, private router: Router, private authService: AuthService) {}
 
     ngOnInit() {
         this.loadEvents();
         this.loadVendors();
     }
 
-    loadEvents() {
-        this.eventService.getAllEvents().subscribe(events => {
+    loadEvents() { 
+      const userId = this.authService.getUserId(); 
+      if(!userId){ 
+        console.log("UserId not found"); 
+        return;
+      }
+        this.eventService.getEventsByUserId(userId).subscribe(events => {
             this.events = events;
         });
     }
 
     loadVendors() {
         if(!this.selectedEventId){   
-            this.vendorService.getAllVendors().subscribe(vendors => { 
+            this.vendorService.getVendorsByEventId(this.selectedEventId).subscribe(vendors => { 
                 this.vendors = vendors
             })
         } 

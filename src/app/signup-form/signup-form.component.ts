@@ -17,7 +17,6 @@ export class SignupFormComponent {
   constructor(private fb: FormBuilder, private router: Router, private authService: AuthService) {
     this.signupForm = this.fb.group({
       name: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
@@ -25,17 +24,16 @@ export class SignupFormComponent {
   onSubmit(): void {
     if (this.signupForm.valid) { 
       const newUser: EventUser = new EventUser( 
-        null,
         this.signupForm.value.name,
-        this.signupForm.value.email,
-        this.signupForm.value.password
+        this.signupForm.value.password,
+        null
       )
 
             this.authService.signup(newUser).subscribe({
               next: (response) => {
                 console.log('User created successfully:', response);
 
-              this.authService.login(this.signupForm.value.email, this.signupForm.value.password).subscribe({
+              this.authService.login(this.signupForm.value.name, this.signupForm.value.password).subscribe({
                 next: (token) => {
                   console.log('Login successful');
                   this.closeModal.emit();

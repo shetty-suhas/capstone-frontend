@@ -4,6 +4,7 @@ import { EventService } from '../event.service';
 import { VendorService } from '../vendor.service';
 import { Vendor } from '../vendor/vendor.model';
 import { Chart, registerables } from 'chart.js';
+import { AuthService } from '../auth.service';
 Chart.register(...registerables);
 
 @Component({
@@ -28,7 +29,8 @@ export class BudgetComponent implements OnInit {
 
   constructor(
     private vendorService: VendorService,
-    private eventService: EventService
+    private eventService: EventService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -36,8 +38,13 @@ export class BudgetComponent implements OnInit {
   }
 
   loadEvents(): void {
-    this.isLoading = true;
-    this.eventService.getAllEvents().subscribe({
+    this.isLoading = true; 
+    const userId = this.authService.getUserId(); 
+    if(!userId){ 
+      console.log("UserId not found"); 
+      return;
+    }
+    this.eventService.getEventsByUserId(userId).subscribe({
       next: (events) => {
         this.events = events;
         this.isLoading = false;

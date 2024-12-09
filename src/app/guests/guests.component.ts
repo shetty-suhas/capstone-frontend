@@ -3,6 +3,7 @@ import { GuestService } from '../guest.service';
 import { Guest } from '../add-guest-form/Guest';
 import { Event as CustomEvent} from '../add-event-form/Event'; 
 import { EventService } from '../event.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-guests',
@@ -23,7 +24,8 @@ export class GuestsComponent implements OnInit{
 
   constructor(
     private eventService: EventService,
-    private guestService: GuestService
+    private guestService: GuestService, 
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -31,8 +33,12 @@ export class GuestsComponent implements OnInit{
   }
 
   loadEvents() {
-    
-    this.eventService.getAllEvents().subscribe({
+    const userId = this.authService.getUserId(); 
+    if(!userId){ 
+      console.log("UserId not found"); 
+      return;
+    }
+    this.eventService.getEventsByUserId(userId).subscribe({
       next: (events) => {
         this.events = events;
         console.log('Events loaded:', events);

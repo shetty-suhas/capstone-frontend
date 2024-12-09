@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Event } from '../add-event-form/Event';
+import { AuthService } from '../auth.service';
 import { EventService } from '../event.service';
 
 @Component({
@@ -10,11 +11,16 @@ import { EventService } from '../event.service';
 export class EventsComponent implements OnInit{
   events: Event[] = [] 
 
-  constructor(private eventService: EventService){ 
+  constructor(private eventService: EventService, private authService: AuthService){ 
 
   }
   ngOnInit(): void {
-    this.eventService.getAllEvents().subscribe((data) => {
+    const userId = this.authService.getUserId(); 
+    if(!userId){ 
+      console.log("UserId not found"); 
+      return;
+    }
+    this.eventService.getEventsByUserId(userId).subscribe((data) => {
       this.events = data.map((item) => {
         const event = new Event("", "", "", "", "", "", 0, 0, "", 0, 0, 0);
         event.id = item.id;

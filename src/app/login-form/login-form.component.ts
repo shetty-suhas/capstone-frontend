@@ -12,33 +12,41 @@ export class LoginFormComponent {
   @Output() closeModal = new EventEmitter<void>();
   
   loginForm: FormGroup;
+  errorMessage: string = '';
+  isLoading: boolean = false;
 
-  constructor(private fb: FormBuilder, private router: Router, private authService: AuthService) {
+  constructor(
+    private fb: FormBuilder, 
+    private router: Router, 
+    private authService: AuthService
+  ) {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
+      name: ['', Validators.required],
       password: ['', Validators.required]
     });
-  } 
+  }
 
   onSubmit(): void {
     if (this.loginForm.valid) {
-      const { email, password } = this.loginForm.value;
+      this.isLoading = true;
+      const { name, password } = this.loginForm.value;
 
-      this.authService.login(email, password).subscribe({
-        next: (token) => {
+      this.authService.login(name, password).subscribe({
+        next: (response) => {
           console.log('Login successful');
+          console.log(response)
           this.closeModal.emit();
           this.router.navigate(['/content/dashboard']);
         },
         error: (error) => {
           console.error('Login error:', error);
+          this.errorMessage = 'Login failed. Please check your credentials.';
+          this.isLoading = false;
         },
         complete: () => {
-
+          this.isLoading = false;
         }
       });
-      this.closeModal.emit();
-      this.router.navigate(['/content/dashboard']);
     }
   }
 }
