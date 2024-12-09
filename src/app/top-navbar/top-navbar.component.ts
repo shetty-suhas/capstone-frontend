@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { LocationDialogComponent } from '../location-dialog/location-dialog.component';
+import { ProfileDialogComponent } from '../profile-dialog/profile-dialog.component';
 
 @Component({
   selector: 'app-top-navbar',
@@ -6,23 +10,33 @@ import { Component } from '@angular/core';
   styleUrls: ['./top-navbar.component.css']
 })
 export class TopNavbarComponent { 
+  @ViewChild('searchInput') searchInput!: ElementRef;
+
   navLogoLocation: string = "assets/region.png"
   navLogoSettings: string = "assets/settings.png"
   navLogoUser: string = "assets/user.png"
-  navLogoNotification: string = "assets/notification.png"
+  
+  constructor(private dialog: MatDialog) {}
 
-  onHoverLocation(isHovered: boolean): void {
-    this.navLogoLocation = isHovered ? "assets/region-black.png" : "assets/region.png"; 
-  } 
-  onHoverNotification(isHovered: boolean): void {
-    this.navLogoNotification = isHovered ? "assets/notification-black.png" : "assets/notification.png"; 
-  } 
-  onHoverSettings(isHovered: boolean): void {
-    this.navLogoSettings = isHovered ? "assets/settings-black.png" : "assets/settings.png"; 
-  } 
-  onHoverUser(isHovered: boolean): void {
-    this.navLogoUser = isHovered ? "assets/user-black.png" : "assets/user.png"; 
-  } 
+  openLocationDialog(): void {
+    const dialogRef = this.dialog.open(LocationDialogComponent, {
+      panelClass: 'custom-dialog',
+      position: { top: '80px' },
+      backdropClass: 'custom-backdrop'
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log('Selected location:', result);
+      }
+    });
+  }
 
+  openProfileDialog(): void {
+    this.dialog.open(ProfileDialogComponent, {
+      panelClass: 'custom-dialog',
+      position: { top: '80px', right: '20px' },
+      backdropClass: 'custom-backdrop'
+    });
+  }
 }

@@ -32,16 +32,27 @@
         <ul>
             <li (click)="updateItem()">Update</li>
             <li (click)="deleteItem()">Delete</li>
-            <li>
-                Status
-                <ul class="status-dropdown">
-                    <li (click)="setStatus('complete')">Complete</li>
-                    <li (click)="setStatus('inProgress')">In Progress</li>
-                    <li (click)="setStatus('upcoming')">Upcoming</li>
-                </ul>
-            </li>
+        
         </ul>
+    </div> 
+    <div class="modal-overlay" *ngIf="showDeleteConfirm">
+        <div class="confirm-dialog">
+            <h3>Delete Event</h3>
+            <p>Are you sure you want to delete "{{ item.name }}"?</p>
+            <p class="warning-text">This action cannot be undone.</p>
+            
+            <div class="dialog-actions">
+                <button class="cancel-btn" (click)="cancelDelete()">Cancel</button>
+                <button class="delete-btn" (click)="confirmDelete()">Delete</button>
+            </div>
+        </div>
     </div>
 </div>   
 
 <app-addtask *ngIf="showForm" (close)="closeForm()"></app-addtask>
+<app-update-event-form
+    *ngIf="showUpdateForm"
+    [event]="item"
+    (close)="closeUpdateForm()"
+    (eventUpdated)="onEventUpdated($event)">
+</app-update-event-form>

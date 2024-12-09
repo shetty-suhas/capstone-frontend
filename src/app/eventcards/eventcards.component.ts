@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { EventService } from '../event.service';
 
 @Component({
   selector: 'app-eventcards',
@@ -7,9 +8,13 @@ import { Component, Input } from '@angular/core';
 })
 export class EventcardsComponent {
   @Input() item: any; 
+  @Output() eventDeleted = new EventEmitter<string>();
   showForm = false;  
   dropdownVisible = false;
+  showUpdateForm = false;
+  showDeleteConfirm = false
 
+  constructor(private eventService: EventService) {}
 
   openForm() {
     this.showForm = true;
@@ -20,14 +25,41 @@ export class EventcardsComponent {
   } 
   toggleDropdown() {
     this.dropdownVisible = !this.dropdownVisible;
-  }
+  } 
 
   updateItem() {
-    console.log('Update item');
+    this.showUpdateForm = true;
+    this.dropdownVisible = false;
+  }
+
+  closeUpdateForm() {
+    this.showUpdateForm = false;
+  }
+
+  onEventUpdated(updatedEvent: any) {
+    this.item = updatedEvent;
+    this.closeUpdateForm();
   }
 
   deleteItem() {
-    console.log('Delete item');
+    this.showDeleteConfirm = true;
+    this.dropdownVisible = false;
+  }
+
+  confirmDelete() {
+    this.eventService.deleteEvent(this.item.id).subscribe({
+      next: () => {
+        this.eventDeleted.emit(this.item.id);
+        this.showDeleteConfirm = false;
+      },
+      error: (error) => {
+        console.error('Error deleting event:', error);
+      }
+    });
+  }
+
+  cancelDelete() {
+    this.showDeleteConfirm = false;
   }
 
   setStatus(status: string) {

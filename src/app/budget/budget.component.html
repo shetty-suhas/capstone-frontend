@@ -1,0 +1,111 @@
+<div class="budget-container">
+    <h1>Budget Overview</h1>
+    
+    <div class="filters-container">
+        <div class="dropdown" (click)="toggleDropdown($event)">
+            <button class="dropdown-button">
+                {{ selectedEventId ? (events | find:selectedEventId)?.name : 'Select Event' }}
+                <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="dropdown-content" *ngIf="dropdownOpen">
+                <div *ngFor="let event of events" 
+                     class="dropdown-item"
+                     (click)="selectOption(event)">
+                    {{ event.name }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="loading-spinner" *ngIf="isLoading">
+      <mat-spinner diameter="40"></mat-spinner>
+    </div>
+  
+    <div class="budget-content" *ngIf="!isLoading && selectedEventId">
+      <div class="summary-cards">
+        <div class="summary-card">
+          <div class="card-icon total-budget">
+            <i class="fas fa-wallet"></i>
+          </div>
+          <div class="card-content">
+            <h3>Total Amount</h3>
+            <p class="amount">₹{{ totalBudget | number:'1.0-0' }}</p>
+          </div>
+        </div>
+  
+        <div class="summary-card">
+          <div class="card-icon amount-spent">
+            <i class="fas fa-money-bill-wave"></i>
+          </div>
+          <div class="card-content">
+            <h3>Amount Spent</h3>
+            <p class="amount spent">₹{{ totalSpent | number:'1.0-0' }}</p>
+          </div>
+        </div>
+  
+        <div class="summary-card">
+          <div class="card-icon amount-due">
+            <i class="fas fa-hourglass-half"></i>
+          </div>
+          <div class="card-content">
+            <h3>Amount Due</h3>
+            <p class="amount due">₹{{ totalDue | number:'1.0-0' }}</p>
+          </div>
+        </div>
+      </div>
+  
+      <div class="charts-container">
+        <div class="chart-card">
+          <h3>Category-wise Expenses</h3>
+          <div class="chart-wrapper">
+            <canvas id="doughnutChart"></canvas>
+          </div>
+        </div>
+        
+        <div class="chart-card">
+          <h3>Vendor Payment Status</h3>
+          <div class="chart-wrapper">
+            <canvas id="barChart"></canvas>
+          </div>
+        </div>
+      </div>
+  
+      <div class="vendor-list">
+        <h3>Vendor Expenses</h3>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Vendor</th>
+                <th>Category</th>
+                <th>Total Amount</th>
+                <th>Amount Paid</th>
+                <th>Amount Due</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let vendor of vendors">
+                <td>{{ vendor.name }}</td>
+                <td>{{ vendor.type }}</td>
+                <td>₹{{ vendor.totalAmount | number:'1.0-0' }}</td>
+                <td>₹{{ (vendor.totalAmount - (vendor.pendingAmount || 0))  | number:'1.0-0' }}</td>
+                <td>₹{{ vendor.pendingAmount | number:'1.0-0' }}</td>
+                <td>
+                  <span class="status" 
+                        [class.paid]="vendor.pendingAmount === 0" 
+                        [class.pending]="vendor.pendingAmount > 0">
+                    {{ vendor.pendingAmount > 0 ?  'Pending' : 'Paid' }}
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  
+    <div class="no-event-message" *ngIf="!isLoading && !selectedEventId">
+      <i class="fas fa-calendar-alt"></i>
+      <p>Please select an event to view budget details</p>
+    </div>
+  </div>

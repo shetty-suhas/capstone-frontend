@@ -1,32 +1,25 @@
 <div class="container"> 
+    <div class="logo-section">
+        <img src="assets/logo.png" alt="Logo" class="logo">
+    </div>
+
     <mat-nav-list>
-        <mat-list-item
-            (mouseover)="onHoverLocation(true)" 
-            (mouseleave)="onHoverLocation(false)">
-            <img [src]="navLogoLocation" alt="Location">
-            <span class="tooltip">Location</span>
+        <mat-list-item (click)="openLocationDialog()" class="nav-item">
+            <div class="nav-icon-container">
+                <img [src]="navLogoLocation" alt="Location" class="nav-icon">
+            </div>
         </mat-list-item> 
         
-        <mat-list-item 
-            (mouseover)="onHoverNotification(true)" 
-            (mouseleave)="onHoverNotification(false)">
-            <img [src]="navLogoNotification" alt="Notifications">
-            <span class="notification-indicator"></span>
-            <span class="tooltip">Notifications</span>
+        <mat-list-item class="nav-item">
+            <div class="nav-icon-container">
+                <img [src]="navLogoSettings" alt="Settings" class="nav-icon">
+            </div>
         </mat-list-item> 
         
-        <mat-list-item 
-            (mouseover)="onHoverSettings(true)" 
-            (mouseleave)="onHoverSettings(false)">
-            <img [src]="navLogoSettings" alt="Settings">
-            <span class="tooltip">Settings</span>
-        </mat-list-item> 
-        
-        <mat-list-item 
-            (mouseover)="onHoverUser(true)" 
-            (mouseleave)="onHoverUser(false)">
-            <img [src]="navLogoUser" alt="Profile">
-            <span class="tooltip">Profile</span>
+        <mat-list-item (click)="openProfileDialog()" class="nav-item">
+            <div class="nav-icon-container">
+                <img [src]="navLogoUser" alt="Profile" class="nav-icon">
+            </div>
         </mat-list-item>
     </mat-nav-list>
 </div>

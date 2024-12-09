@@ -1,0 +1,22 @@
+<div class="dialog-container">
+    <h2>Select Location</h2>
+    <div class="search-container">
+      <input 
+        type="text" 
+        [(ngModel)]="searchQuery"
+        (input)="onSearchLocation($event)"
+        placeholder="Search location..."
+        class="search-input"
+      >
+      <div class="location-results" *ngIf="filteredLocations.length > 0">
+        <div 
+          *ngFor="let location of filteredLocations" 
+          class="location-option"
+          (click)="selectLocation(location)"
+        >
+          <i class="fas fa-map-marker-alt"></i>
+          {{ location }}
+        </div>
+      </div>
+    </div>
+  </div>

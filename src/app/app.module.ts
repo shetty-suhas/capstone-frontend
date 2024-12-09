@@ -40,7 +40,12 @@ import { AddBudgetFormComponent } from './add-budget-form/add-budget-form.compon
 import { EditTaskFormComponent } from './edit-task-form/edit-task-form.component';
 import { EditGuestFormComponent } from './edit-guest-form/edit-guest-form.component';
 import { EditPaymentFormComponent } from './edit-payment-form/edit-payment-form.component';
-
+import { LocationDialogComponent } from './location-dialog/location-dialog.component';
+import { ProfileDialogComponent } from './profile-dialog/profile-dialog.component';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { UpdateEventFormComponent } from './update-event-form/update-event-form.component';
 
 
 
@@ -80,6 +85,9 @@ import { EditPaymentFormComponent } from './edit-payment-form/edit-payment-form.
     EditTaskFormComponent,
     EditGuestFormComponent,
     EditPaymentFormComponent,
+    LocationDialogComponent,
+    ProfileDialogComponent,
+    UpdateEventFormComponent,
   ],
   imports: [
     BrowserModule, 
@@ -90,8 +98,10 @@ import { EditPaymentFormComponent } from './edit-payment-form/edit-payment-form.
     MatDialogModule,
     ReactiveFormsModule,
     HttpClientModule,
-    MatIconModule
-    
+    MatIconModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

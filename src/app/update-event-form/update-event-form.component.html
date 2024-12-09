@@ -1,0 +1,66 @@
+<div class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Update Event</h2>
+        <button class="close-button" (click)="onClose()">×</button>
+      </div>
+  
+      <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="name">Event Name</label>
+          <input 
+            id="name"
+            type="text"
+            formControlName="name"
+            placeholder="Enter event name">
+        </div>
+  
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea
+            id="description"
+            formControlName="description"
+            placeholder="Enter event description"
+            rows="3">
+          </textarea>
+        </div>
+  
+        <div class="form-group">
+          <label for="location">Location</label>
+          <input
+            id="location"
+            type="text"
+            formControlName="location"
+            placeholder="Enter event location">
+        </div>
+  
+        <div class="form-row">
+          <div class="form-group">
+            <label for="startDate">Start Date</label>
+            <input
+              id="startDate"
+              type="date"
+              formControlName="startDate">
+          </div>
+  
+          <div class="form-group">
+            <label for="endDate">End Date</label>
+            <input
+              id="endDate"
+              type="date"
+              formControlName="endDate">
+          </div>
+        </div>
+  
+        <div class="form-actions">
+          <button type="button" class="cancel-btn" (click)="onClose()">Cancel</button>
+          <button 
+            type="submit" 
+            class="submit-btn" 
+            [disabled]="!updateForm.valid || isLoading">
+            {{ isLoading ? 'Updating...' : 'Update Event' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>

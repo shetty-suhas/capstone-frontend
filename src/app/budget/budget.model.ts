@@ -14,5 +14,7 @@ export class Budget{
         this.allocatedAmount = allocatedAmount;
         this.spentAmount = spentAmount;
         this.categoryAllocations = categoryAllocations;
-    }
+    } 
+
+    
 }
