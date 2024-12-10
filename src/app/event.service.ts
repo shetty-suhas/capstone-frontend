@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, map } from 'rxjs';  
 import { Event } from './add-event-form/Event';
 import { Budget } from './budget/budget.model';
@@ -7,39 +7,56 @@ import { Budget } from './budget/budget.model';
   providedIn: 'root'
 })
 export class EventService {
-  private apiUrl = 'http://localhost:8093/event';
+  private apiUrl = 'http://localhost:8094/event';
 
   constructor(private http: HttpClient) {}
 
+  private getAuthHeaders(): HttpHeaders {
+    const token = localStorage.getItem('token');
+    return new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  }
+
   testEvent(): Observable<string> {  
-    return this.http.get<string>(`${this.apiUrl}/test`);
+    return this.http.get<string>(`${this.apiUrl}/test`, {
+      headers: this.getAuthHeaders()
+    });
   } 
 
   saveEvent(event: Event): Observable<Event> {
-    return this.http.post<Event>(this.apiUrl, event);
+    return this.http.post<Event>(this.apiUrl, event, {
+      headers: this.getAuthHeaders()
+    });
   } 
 
   getEventById(id: string): Observable<Event> {
-    return this.http.get<Event>(`${this.apiUrl}/${id}`);
+    return this.http.get<Event>(`${this.apiUrl}/${id}`, {
+      headers: this.getAuthHeaders()
+    });
   }
 
   getAllEvents(): Observable<Event[]> { 
-    return this.http.get<Event[]>(this.apiUrl);
+    return this.http.get<Event[]>(this.apiUrl, {
+      headers: this.getAuthHeaders()
+    });
   }
 
   updateEvent(event: Event): Observable<Event> {
-    return this.http.put<Event>(`${this.apiUrl}/${event.id}`, event);
+    return this.http.put<Event>(`${this.apiUrl}/${event.id}`, event, {
+      headers: this.getAuthHeaders()
+    });
   }
 
   deleteEvent(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    return this.http.delete<void>(`${this.apiUrl}/${id}`, {
+      headers: this.getAuthHeaders()
+    });
   }
-
 
   getEventsByUserId(userId: string): Observable<Event[]> {
-    return this.http.get<Event[]>(`${this.apiUrl}/user/${userId}`);
+    return this.http.get<Event[]>(`${this.apiUrl}/user/${userId}`, {
+      headers: this.getAuthHeaders()
+    });
   }
-
 
   updateEventTasks(
     eventId: string, 
@@ -47,7 +64,10 @@ export class EventService {
     totalTask: number
   ): Observable<Event> {
     return this.http.get<Event>(
-      `${this.apiUrl}/tasks/${eventId}/${taskCompleted}/${totalTask}`
+      `${this.apiUrl}/tasks/${eventId}/${taskCompleted}/${totalTask}`,
+      {
+        headers: this.getAuthHeaders()
+      }
     );
   }
 
@@ -58,13 +78,20 @@ export class EventService {
 
   updateEventGuests(eventId: string, totalGuests: number): Observable<Event> {
     return this.http.get<Event>(
-      `${this.apiUrl}/guests/${eventId}/${totalGuests}`, 
+      `${this.apiUrl}/guests/${eventId}/${totalGuests}`,
+      {
+        headers: this.getAuthHeaders()
+      }
     );
   } 
 
-  getBudgetByEventId(eventId: string) : Observable<Budget>{  
+  getBudgetByEventId(eventId: string): Observable<Budget> {  
     return this.http.get<Budget>(
-      `${this.apiUrl}/budget/${eventId}}`
-    )
+      `${this.apiUrl}/budget/${eventId}}`,
+      {
+        headers: this.getAuthHeaders()
+      }
+    );
   }
 }
+

@@ -29,18 +29,18 @@ export class LoginFormComponent {
   onSubmit(): void {
     if (this.loginForm.valid) {
       this.isLoading = true;
+      this.errorMessage = ''; 
       const { name, password } = this.loginForm.value;
 
       this.authService.login(name, password).subscribe({
         next: (response) => {
           console.log('Login successful');
-          console.log(response)
           this.closeModal.emit();
           this.router.navigate(['/content/dashboard']);
         },
         error: (error) => {
           console.error('Login error:', error);
-          this.errorMessage = 'Login failed. Please check your credentials.';
+          this.errorMessage = 'Invalid username or password';
           this.isLoading = false;
         },
         complete: () => {

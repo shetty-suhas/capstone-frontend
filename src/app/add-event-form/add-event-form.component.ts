@@ -22,7 +22,11 @@ export class AddEventFormComponent{
   eventType: any;
   venue: any;  
   isSubmitting: boolean = false;
-  @Output() close = new EventEmitter<void>();
+  @Output() close = new EventEmitter<void>(); 
+
+  showNotification = false;
+  notificationType: 'success' | 'error' = 'success';
+  notificationMessage = '';
 
 
   closeForm() {
@@ -122,21 +126,38 @@ export class AddEventFormComponent{
       this.isSubmitting = true;
       this.eventService.saveEvent(newEvent).subscribe({
         next: (response: any) => {
-          this.isSubmitting = false;
-          this.openDialog('Event saved successfully!', true); 
-          console.log(response)
+          this.showSuccessNotification('Event created successfully!');
+          setTimeout(() => {
+            this.closeForm();
+          }, 3000);
         },
         error: (err: any) => {
-          this.isSubmitting = false;
-          this.openDialog('Failed to save the event. Please try again later.', false);
-          console.error(err);
+          this.showErrorNotification('Failed to create event. Please try again.');
         } 
       }); 
       this.closeForm();
     }  
-
-
   }
+  private showSuccessNotification(message: string) {
+    this.notificationType = 'success';
+    this.notificationMessage = message;
+    this.showNotification = true;
+    this.hideNotificationAfterDelay();
+  }
+
+  private showErrorNotification(message: string) {
+    this.notificationType = 'error';
+    this.notificationMessage = message;
+    this.showNotification = true;
+    this.hideNotificationAfterDelay();
+  }
+
+  private hideNotificationAfterDelay() {
+    setTimeout(() => {
+      this.showNotification = false;
+    }, 3000);
+  }
+  
   openDialog(message: string, success: boolean): void {
     this.dialog.open(NotificationDialogComponent, {
       data: {

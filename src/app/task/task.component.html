@@ -1,41 +1,71 @@
-<div class="container"> 
-    <div class="header-section">
-        <button class="back-button" (click)="goBack()">
-            <i class="fas fa-arrow-left"></i> Back
-        </button> 
-
-        <button class="add-task-button" (click)="openForm()">
-            <i class="fas fa-plus"></i> Add New Task
+<div class="container">
+    <div class="main-content">
+      <div class="header">
+        <div class="header-info">
+          <h1>Tasks</h1>
+        </div>
+        <button class="add-button" (click)="openForm()">
+          <i class="fas fa-plus"></i>
+          Add New Task
         </button>
-    </div>
-    
-    <div class="main-content"> 
-        <div class="header-left"> 
-            <h1 class="header">Tasks</h1> 
-        </div>
-        <div class="tasks-container">
-            <div class="task-list">
-                <div class="save-button-container">
-                    <button 
-                        class="save-button" 
-                        [disabled]="!hasChanges"
-                        (click)="saveChanges()"
-                    >
-                        <i class="fas fa-save"></i> Save Changes
-                    </button>
-                </div>
-            <div class="task-list">
-                <app-task-item *ngFor="let task of tasks" [task]="task"
-                    (statusChange)="onTaskStatusChange($event)"  
-                    (taskEdit)="onTaskEdit($event)"></app-task-item>
+      </div>
+  
+      <!-- Save changes button -->
+      <div class="save-button-container" *ngIf="hasChanges">
+        <button class="save-button" (click)="saveChanges()">
+          <i class="fas fa-save"></i>
+          Save Changes
+        </button>
+      </div>
+  
+      <div class="tasks-container">
+        <div *ngFor="let task of tasks" class="task-card" [class.completed]="task.status === 'COMPLETED'">
+          <div class="task-header">
+            <div class="left-section">
+              <div class="checkbox-wrapper">
+                <input 
+                  type="checkbox" 
+                  [checked]="task.status === 'COMPLETED'"
+                  (change)="toggleComplete(task)"
+                  id="task-{{task.id}}"
+                >
+                <label [for]="'task-'+task.id"></label>
+              </div>
+              <h3 class="task-name">{{ task.name }}</h3>
             </div>
+            
+            <div class="right-section">
+              <div class="datetime-info">
+                <div class="time-block">
+                  <i class="far fa-clock"></i>
+                  <span>Start: {{ task.startDateTime }}</span>
+                </div>
+                <div class="time-block">
+                  <i class="fas fa-hourglass-end"></i>
+                  <span>End: {{ task.endDateTime }}</span>
+                </div>
+              </div>
+              
+              <div class="actions">
+                <button class="icon-button edit" (click)="onTaskEdit(task)">
+                  <img src="assets/edit-grey.png" alt="Edit" class="icon-img">
+                </button>
+                <button class="icon-button delete" (click)="deleteTask(task)">
+                  <img src="assets/delete-grey.png" alt="Delete" class="icon-img">
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-</div>
+  </div>
+  
+  
+  <app-addtask *ngIf="showForm"  [eventId]="eventId" (close)="closeForm()"></app-addtask>
 
-<app-addtask *ngIf="showForm" [eventId]="eventId" (close)="closeForm()"></app-addtask> 
-<app-edit-task-form
-*ngIf="showEditForm && selectedTask"
-[task]="selectedTask"
-(close)="showEditForm = false"
-></app-edit-task-form>
+  <app-edit-task-form 
+    *ngIf="showEditForm" 
+    [task]="selectedTask"
+    (close)="closeEditForm()">
+  </app-edit-task-form>

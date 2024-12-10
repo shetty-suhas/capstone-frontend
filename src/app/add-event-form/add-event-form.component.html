@@ -64,4 +64,20 @@
       <button type="submit" class="submit-btn" [disabled]="!formValid">Submit</button>
     </div>
   </form>
+</div> 
+<div class="notification" 
+     *ngIf="showNotification" 
+     [class.success]="notificationType === 'success'"
+     [class.error]="notificationType === 'error'">
+  <img [src]="notificationType === 'success' ? 'assets/check-circle.svg' : 'assets/x-circle.svg'"
+       class="notification-icon"
+       [alt]="notificationType">
+  <div class="notification-content">
+    <div class="notification-title">
+      {{ notificationType === 'success' ? 'Success!' : 'Error!' }}
+    </div>
+    <div class="notification-message">
+      {{ notificationMessage }}
+    </div>
+  </div>
 </div>

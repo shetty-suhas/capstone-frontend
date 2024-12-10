@@ -19,6 +19,7 @@ export class GuestsComponent implements OnInit{
   showForm = false; 
   showEditForm = false;
   selectedGuest: Guest | null = null;
+  isSendingRsvp: boolean = false;
 
   
 
@@ -151,6 +152,63 @@ export class GuestsComponent implements OnInit{
         console.error('Error deleting guest:', error);
       }
     );
+  } 
+
+  formatDateTime(dateTimeStr: string): string {
+    try {
+      // Split date and time
+      const [dateStr, timeStr] = dateTimeStr.split(' ');
+      
+      // Split date components (dd-mm-yyyy)
+      const [day, month, year] = dateStr.split('-');
+      
+      // Split time components (HH:mm)
+      const [hours, minutes] = timeStr.split(':');
+      
+      // Return formatted string
+      return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}T${hours.padStart(2, '0')}:${minutes.padStart(2, '0')}:00+05:30`;
+    } catch (error) {
+      console.error('Error formatting date:', error);
+      return '';
+    }
+  }
+
+  sendRSVP(guest: Guest, event: Event) {
+    event.stopPropagation();
+    this.isSendingRsvp = true;
+
+    // First get event details
+    this.eventService.getEventById(this.selectedEventId).subscribe({
+      next: (eventData) => { 
+        console.log(eventData.startDate)
+        console.log(eventData.endDate)
+        const eventDetails = {
+          eventName: eventData.name,
+          eventDescription: eventData.description,
+          startDateTime: this.formatDateTime(eventData.startDate),
+          endDateTime: this.formatDateTime(eventData.endDate)
+        };
+
+        // Then send the RSVP
+        this.guestService.sendRSVPInvite(guest.id, eventDetails).subscribe({
+          next: (response) => {
+            console.log('RSVP sent successfully');
+            guest.rsvpStatus = 'SENT';
+          },
+          error: (error) => {
+            console.error('Error sending RSVP:', error);
+          },
+          complete: () => {
+            this.isSendingRsvp = false;
+          }
+        });
+      },
+      error: (error) => {
+        console.error('Error fetching event details:', error);
+        this.isSendingRsvp = false;
+        // Add error notification here
+      }
+    });
   }
 
   private updateEventGuestCount() {

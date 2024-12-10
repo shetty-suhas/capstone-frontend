@@ -18,10 +18,13 @@ export class EventCardComponent {
   constructor(private router: Router) {}
 
 
-  openTasks() {
-    this.router.navigate(['/content/event/tasks'], { 
-      queryParams: { eventId: this.eventt.id }
-    });
+  openTasks(event: MouseEvent) {
+    if (!this.menuVisible) {
+      console.log('Navigating to tasks with eventId:', this.eventt.id);
+      this.router.navigate(['/content/event/tasks'], { 
+        queryParams: { eventId: this.eventt.id }
+      });
+    }
   }
 
 

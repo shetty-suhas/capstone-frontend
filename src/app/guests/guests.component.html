@@ -35,8 +35,7 @@
                     </div>
 
                     <button class="action-button" 
-                            *ngIf="canSendRsvp(guest)"
-                            (click)="sendRsvp(guest)">
+                            (click)="sendRSVP(guest, $event)">
                         Send RSVP
                     </button>
 

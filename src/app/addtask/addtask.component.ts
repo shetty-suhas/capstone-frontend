@@ -36,6 +36,7 @@ export class AddTaskComponent {
 
   onSubmit(): void {
     if (this.isSubmitting) return;
+    console.log(this.eventId)
     this.isSubmitting = true;
     console.log(this.eventId)
     const newTask = new Task(
