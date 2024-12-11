@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ProfileDialogComponent } from '../profile-dialog/profile-dialog.component';
 
 @Component({
   selector: 'app-navbar',
@@ -6,11 +8,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent { 
+  @ViewChild('profileItem') profileItem!: ElementRef; 
+
   iconSrcAdd: string = "assets/plus-grey.png" 
   iconSrcEvent: string = "assets/event-grey.png" 
   iconSrcGuest: string = "assets/guest-grey.png"   
   iconSrcBudget: string = "assets/budget-grey.png"
-  iconSrcVendor: string = "assets/vendor-grey.png" 
+  iconSrcVendor: string = "assets/vendor-grey.png"
+  iconSrcProfile = 'assets/user.png';  
+  
+  constructor(private dialog: MatDialog) {}
 
   onHoverAdd(isHovered: boolean): void {
     this.iconSrcAdd = isHovered ? "assets/plus-white.png" : "assets/plus-grey.png";
@@ -28,6 +35,24 @@ export class NavbarComponent {
   onHoverVendor(isHovered: boolean): void {
     this.iconSrcVendor = isHovered ? "assets/vendor-white.png" : "assets/vendor-grey.png"; 
   }  
+  onHoverProfile(isHovering: boolean) {
+    this.iconSrcProfile = isHovering ? 'assets/user-black.png' : 'assets/user.png';
+  }
+  openProfileDialog(event: MouseEvent) {
+    event.stopPropagation(); // Prevent event bubbling
+    
+    const dialogRef = this.dialog.open(ProfileDialogComponent, {
+      width: '350px',
+      hasBackdrop: true,
+      backdropClass: 'dialog-backdrop',
+      position: { right: '800px', top: '350px' }
+    });
+
+    dialogRef.afterOpened().subscribe(() => {
+      console.log('Dialog opened');
+    });
+  }
+  
   showForm = false;
 
   openForm() {
@@ -37,4 +62,5 @@ export class NavbarComponent {
   closeForm() {
     this.showForm = false;
   }
+  
 }

@@ -1,9 +1,9 @@
 .container { 
-  position: absolute;
+  position: relative;
   right: 0;
-  top: 60px;
+  top: 53px;
   width: calc(100vw - 250px);
-  height: calc(100vh - 60px);
+  height: 100vh - 60px;
   background: linear-gradient(135deg, #f8faff 0%, #eef5ff 100%);
   overflow-y: auto;
   overflow-x: hidden;

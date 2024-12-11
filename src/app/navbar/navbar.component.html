@@ -1,7 +1,7 @@
 <div class="navbar-container">
     <mat-nav-list>  
         <mat-list-item class="head-list">
-            <h1 class="heading">EVENT PLANNER</h1>
+            <h1 class="heading">EVENT MASTER</h1>
         </mat-list-item>
         
         <mat-list-item class="nav-item"
@@ -59,6 +59,18 @@
                 <img [src]="iconSrcVendor" alt="vendors"> 
                 <p class="btns">Vendors</p>
             </div> 
-        </mat-list-item>
+        </mat-list-item> 
+
+        <mat-list-item #profileItem 
+        class="nav-item profile-item"
+        (mouseover)="onHoverProfile(true)" 
+        (mouseleave)="onHoverProfile(false)"
+        (click)="openProfileDialog($event)"
+    > 
+        <div class="nav-content">
+            <img [src]="iconSrcProfile" alt="profile"> 
+            <p class="btns">Profile</p>
+        </div> 
+    </mat-list-item> 
     </mat-nav-list>
 </div>

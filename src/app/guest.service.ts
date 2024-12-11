@@ -1,7 +1,7 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Guest } from './add-guest-form/Guest';
-import { Observable } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -56,6 +56,29 @@ export class GuestService {
     return this.http.get<Guest[]>(`${this.apiUrl}/diet/${dietaryPreference}`, {
       headers: this.getAuthHeaders()
     });
+  } 
+
+  sendReminder(guestId: string, eventDetails: any): Observable<any> {
+    const url = `${this.apiUrl}/calendar/send-reminder/${guestId}`;
+    const token = localStorage.getItem('token');
+    
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    };
+
+    return this.http.post(url, eventDetails, { headers });
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    let errorMessage = 'An error occurred';
+    if (error.error instanceof ErrorEvent) {
+      errorMessage = `Error: ${error.error.message}`;
+    } else {
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    console.error(errorMessage);
+    return throwError(() => new Error(errorMessage));
   }
 
 

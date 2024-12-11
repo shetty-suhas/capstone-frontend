@@ -1,5 +1,6 @@
 .budget-container {
-    height: calc(100vh - 65px); 
+  margin-top: 60px;
+    height: 100vh; 
     padding: 24px;
     background-color: #f8fafc;
     overflow-y: auto;

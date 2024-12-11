@@ -20,8 +20,7 @@ export class GuestsComponent implements OnInit{
   showEditForm = false;
   selectedGuest: Guest | null = null;
   isSendingRsvp: boolean = false;
-
-  
+  isSendingReminder: boolean = true;
 
   constructor(
     private eventService: EventService,
@@ -133,8 +132,37 @@ export class GuestsComponent implements OnInit{
   
   }
 
-  sendReminders(guest: Guest) {
+  sendReminders(guest: any) {
+    console.log("clicked")
+    this.eventService.getEventById(this.selectedEventId).subscribe({
+      next: (eventData) => {
+        const eventDetails = {
+          eventName: eventData.name,
+          eventDescription: eventData.description,
+          startDateTime: this.formatDateTime(eventData.startDate),
+          endDateTime: this.formatDateTime(eventData.endDate),
+          location: eventData.location,
+          guestEmail: guest.email
+        };
 
+        this.guestService.sendReminder(guest.id, eventDetails).subscribe({
+          next: (response) => {
+            console.log('Reminder sent successfully');
+            guest.reminderStatus = 'SENT';
+          },
+          error: (error) => {
+            console.error('Error sending reminder:', error);
+          },
+          complete: () => {
+            this.isSendingReminder = false;
+          }
+        });
+      },
+      error: (error) => {
+        console.error('Error fetching event details:', error);
+        this.isSendingReminder = false;
+      }
+    });
   }
 
   editGuest(guest: Guest) {
@@ -225,4 +253,5 @@ export class GuestsComponent implements OnInit{
       error => console.error('Error getting event details:', error)
     );
   }
+  
 }
