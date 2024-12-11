@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Event } from '../add-event-form/Event';
+import { AuthService } from '../auth.service';
 import { EventService } from '../event.service';
 import { VendorService } from '../vendor.service';
 import { Vendor } from '../vendor/vendor.model';
@@ -13,7 +14,7 @@ export class VendorFormComponent{
   @Output() close = new EventEmitter<void>();  
   events: Event[] = [];
 
-  constructor(private vendorService: VendorService, private eventService: EventService){
+  constructor(private vendorService: VendorService, private eventService: EventService, private authService: AuthService){
     this.loadEvents();
   } 
   isSubmitting = false; 
@@ -74,8 +75,13 @@ export class VendorFormComponent{
     }
   }
 
-  loadEvents() {
-    this.eventService.getAllEvents().subscribe({
+  loadEvents() { 
+    const userId = this.authService.getUserId(); 
+    if(!userId){ 
+      console.log("UserId not found"); 
+      return;
+    } 
+    this.eventService.getEventsByUserId(userId).subscribe({
       next: (events) => {
         this.events = events;
         console.log('Events loaded:', events);

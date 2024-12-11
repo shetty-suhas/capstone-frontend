@@ -12,9 +12,13 @@ import { EventService } from '../event.service';
 export class DashboardComponent implements OnInit{  
  
   events: Event[] = [] 
+  filteredEvents: any[] = [];
   constructor(private eventService: EventService, private authService: AuthService){
   } 
   ngOnInit(): void {
+    this.loadEvents()
+}  
+  loadEvents(){ 
     const userId = this.authService.getUserId(); 
     if(!userId){ 
       console.log("UserId not found"); 
@@ -48,9 +52,11 @@ export class DashboardComponent implements OnInit{
         event.status = item.status;
         return event;
 
-    });
+    });  
+    this.filteredEvents = this.events;
+    
   });
-} 
+  }
 
 
   
@@ -63,5 +69,25 @@ export class DashboardComponent implements OnInit{
 
   closeForm() {
     this.showForm = false;
+  } 
+  onSearch(event: any) {
+    const searchTerm = event.target.value.toLowerCase().trim();
+    
+    if (!searchTerm) {
+      this.filteredEvents = this.events;
+      return;
+    }
+
+    const searchWords = searchTerm.split(' ').filter((word : any) => word.length > 0);
+
+    this.filteredEvents = this.events.filter(event => {
+      const eventName = event.name.toLowerCase();
+      const eventLocation = event.location.toLowerCase();
+
+      return searchWords.some((word : any) => 
+        eventName.includes(word) || eventLocation.includes(word)
+      );
+    });
   }
+  
 }

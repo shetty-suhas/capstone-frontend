@@ -9,7 +9,11 @@
             <div class="header-search">
                 <div class="wrap">
                     <div class="search">
-                       <input type="text" class="searchTerm" placeholder="Search Event">
+                        <input matInput 
+                        type="text" 
+                        class="searchTerm" 
+                        placeholder="Search by event name or location"
+                        (input)="onSearch($event)">
                        <button type="submit" class="searchButton">
                          <img src="assets/search-white.png" alt="" class="search-img">
                       </button>
@@ -19,8 +23,11 @@
 
         </div>
         <div class="event-scroll">
-            <app-eventcards *ngFor="let item of events" [item]="item"></app-eventcards>
-        </div>
+            <app-eventcards *ngFor="let item of filteredEvents" [item]="item"></app-eventcards>
+        </div> 
+        <div *ngIf="filteredEvents.length === 0" class="no-results">
+            No events found
+          </div>
      </div>
 </div>  
 <app-add-event-form *ngIf="showForm" (close)="closeForm()"></app-add-event-form>

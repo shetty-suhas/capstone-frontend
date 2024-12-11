@@ -18,6 +18,13 @@
         <button class="add-guest-button" (click)="openForm()" [disabled]="!selectedEventId">
             Add Guest
         </button>
+        <div class="action-buttons">
+            <button class="rsvp-button" 
+                    [disabled]="!hasGuests || !isselectedEvent"
+                    (click)="sendBulkRsvp()">
+                {{ isSendingBulkRsvp ? 'Sending...' : 'Send RSVPs' }}
+            </button>
+        </div>
     </div>
 
     <div class="guests-list" *ngIf="guests.length > 0">

@@ -10,6 +10,7 @@ import { EventService } from '../event.service';
 })
 export class EventsComponent implements OnInit{
   events: Event[] = [] 
+  filteredEvents: any[] = [];
 
   constructor(private eventService: EventService, private authService: AuthService){ 
 
@@ -47,7 +48,8 @@ export class EventsComponent implements OnInit{
         event.type = item.type;
         event.status = item.status;
         return event;
-    });
+    }); 
+    this.filteredEvents = this.events
   });
   }
   onClickSearch(){} 
@@ -59,6 +61,26 @@ export class EventsComponent implements OnInit{
   closeForm() {
     this.showForm = false;
   } 
+
+  onSearch(event: any) {
+    const searchTerm = event.target.value.toLowerCase().trim();
+    
+    if (!searchTerm) {
+      this.filteredEvents = this.events;
+      return;
+    }
+
+    const searchWords = searchTerm.split(' ').filter((word : any) => word.length > 0);
+
+    this.filteredEvents = this.events.filter(event => {
+      const eventName = event.name.toLowerCase();
+      const eventLocation = event.location.toLowerCase();
+
+      return searchWords.some((word : any) => 
+        eventName.includes(word) || eventLocation.includes(word)
+      );
+    });
+  }
 
   
 

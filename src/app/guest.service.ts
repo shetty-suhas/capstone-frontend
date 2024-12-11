@@ -81,6 +81,13 @@ export class GuestService {
     return throwError(() => new Error(errorMessage));
   }
 
+  sendBulkRsvp(eventId: string, eventDetails: any): Observable<any> {
+    const url = `${this.apiUrl}/calendar/send-bulk-invite/${eventId}`;
+    return this.http.post(url, eventDetails,       {
+      headers: this.getAuthHeaders()
+    });
+  }
+
 
   sendRSVPInvite(guestId: string, eventDetails: {
     eventName: string;

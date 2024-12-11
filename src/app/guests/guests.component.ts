@@ -21,6 +21,7 @@ export class GuestsComponent implements OnInit{
   selectedGuest: Guest | null = null;
   isSendingRsvp: boolean = false;
   isSendingReminder: boolean = true;
+  hasGuests: boolean = false
 
   constructor(
     private eventService: EventService,
@@ -57,7 +58,9 @@ export class GuestsComponent implements OnInit{
 
   selectOption(event: CustomEvent) {
     this.selectedEventId = event.id;
-    this.dropdownOpen = false;
+    this.dropdownOpen = false; 
+    this.isselectedEvent = true
+    this.selectedEvent = event
     this.loadGuests(this.selectedEventId);
   }
   @HostListener('document:click', ['$event'])
@@ -76,7 +79,9 @@ export class GuestsComponent implements OnInit{
     this.guestService.getGuestsByEventId(eventId).subscribe({
       next: (guests) => {
         this.guests = guests;
-
+        if(this.guests.length > 0){ 
+          this.hasGuests = true
+        } 
       },
       error: (err) => {
         console.error('Error loading guests:', err);
@@ -128,8 +133,38 @@ export class GuestsComponent implements OnInit{
     return guest.rsvpStatus === 'NOT_SENT';
   }
 
-  sendRsvp(guest: Guest) {
+  isSendingBulkRsvp = false;
+  selectedEvent: any = null;  // Make sure you have this property
+  isselectedEvent: boolean = false;
+  sendBulkRsvp() {
+    if (!this.isselectedEvent) {
+      alert('Please select an event first');
+      return;
+    }
   
+    if (this.isSendingBulkRsvp) return;
+    
+    this.isSendingBulkRsvp = true;
+    
+    const eventDetails = {
+      eventName: this.selectedEvent.name,
+      eventDescription: this.selectedEvent.description,
+      startDateTime: this.formatDateTime(this.selectedEvent.startDate),
+      endDateTime: this.formatDateTime(this.selectedEvent.endDate)
+
+
+    };
+  
+    this.guestService.sendBulkRsvp(this.selectedEvent.id, eventDetails).subscribe({
+      next: (response) => {
+        console.log('Bulk RSVP sent successfully');
+        this.isSendingBulkRsvp = false;
+      },
+      error: (error) => {
+        console.error('Error sending bulk RSVP:', error);
+        this.isSendingBulkRsvp = false;
+      }
+    });
   }
 
   sendReminders(guest: any) {

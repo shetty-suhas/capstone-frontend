@@ -5,12 +5,14 @@
             <button (click)="openForm()" class="add-event-btn"> + Add Event</button>
         </div>  
         <div class="header-right">
-            <input type="text" placeholder="Search Events" #filter class="search-bar">
+            <input type="text" placeholder="Search Events" #filter class="search-bar"
+            placeholder="Search by event name or location"
+            (input)="onSearch($event)">
             <button class="search-btn" type="button" (click)="onClickSearch()">Search</button>
         </div>
     </div>  
     <div class="content"> 
-        <app-event-card *ngFor="let eventt of events" [eventt]="eventt" class="cards"></app-event-card>
+        <app-event-card *ngFor="let eventt of filteredEvents" [eventt]="eventt" class="cards"></app-event-card>
     </div>
 
 </div> 
